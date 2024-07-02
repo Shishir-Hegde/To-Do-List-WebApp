@@ -20,11 +20,15 @@ app.use(express.static("public"));
 app.engine('html', renderFile);
 app.set('view engine', 'html');
 
+let deadline = "today";
 let items = [];
+// let TodayItems = [];
+// let thisWeekItems = [];
+// let thisMonthItems = [];
 let loggedUserId = 0;
 
 async function getItems() {
-  const result = await db.query("SELECT * FROM items WHERE user_id=$1", [loggedUserId]);
+  const result = await db.query("SELECT * FROM items WHERE user_id=$1 AND deadline=$2", [loggedUserId, deadline]);
   return result.rows;
 }
 
@@ -32,7 +36,7 @@ app.get("/", async (req, res) => {
   if (loggedUserId) {
     items = await getItems();
     res.render("index.ejs", {
-      listTitle: "Today",
+      listTitle: deadline,
       listItems: items,
     });
   } else {
@@ -47,7 +51,22 @@ app.get("/login", (req, res) => {
 app.get("/logout", (req, res) => {
   loggedUserId = 0;
   res.redirect("/login");
-})
+});
+
+app.post("/today", (req, res) => {
+  deadline = "today";
+  res.redirect("/")
+});
+
+app.post("/this-week", (req, res) => {
+  deadline = "this week";
+  res.redirect("/");
+});
+
+app.post("/this-month", (req, res) => {
+  deadline = "this month";
+  res.redirect("/");
+});
 
 app.post("/login", async (req, res) => {
   try {
@@ -90,7 +109,7 @@ app.post("/register", async (req, res) => {
 app.post("/add", async (req, res) => {
   try {
     const item = req.body.newItem;
-    await db.query("INSERT INTO items (title, user_id) VALUES ($1, $2)", [item, loggedUserId]);
+    await db.query("INSERT INTO items (title, user_id, deadline) VALUES ($1, $2, $3)", [item, loggedUserId, deadline]);
     res.redirect("/");
   } catch (err) {
     console.log("error during adding : ", err);
@@ -101,7 +120,7 @@ app.post("/add", async (req, res) => {
 app.post("/edit", async (req, res) => {
   try {
     const response = req.body;
-    await db.query("UPDATE items SET title=$1 WHERE id=$2 AND user_id=$3", [response.updatedItemTitle, response.updatedItemId, loggedUserId]);
+    await db.query("UPDATE items SET title=$1 WHERE id=$2 AND user_id=$3 AND deadline=$4", [response.updatedItemTitle, response.updatedItemId, loggedUserId, deadline]);
     res.redirect("/");
   } catch (err) {
     console.log("error during editing : ", err);
@@ -112,7 +131,7 @@ app.post("/edit", async (req, res) => {
 app.post("/delete", async (req, res) => {
   try {
     const response = req.body;
-    db.query("DELETE FROM items WHERE id=$1 AND user_id=$2", [response.deleteItemId, loggedUserId]);
+    db.query("DELETE FROM items WHERE id=$1 AND user_id=$2 AND deadline=$3", [response.deleteItemId, loggedUserId, deadline]);
     res.redirect("/");
   } catch (err) {
     console.log("error during deleting : ", err);

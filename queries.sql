@@ -1,6 +1,12 @@
 CREATE TABLE items (
   id SERIAL PRIMARY KEY,
-  title VARCHAR(100) NOT NULL
+  title VARCHAR(100) NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  deadline TEXT
 );
 
-INSERT INTO items (title) VALUES ('Buy milk'), ('Finish homework');
+CREATE TABLE users (
+id SERIAL PRIMARY KEY,
+username VARCHAR(50),
+password VARCHAR(50)
+);
