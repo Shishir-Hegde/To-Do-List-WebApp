@@ -5,6 +5,17 @@
       <%= listTitle %>
     </h1>
   </div>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <form action="/today" method="post">
+      <button type="submit" class="btn btn-primary">Today</button>
+    </form>
+    <form action="/this-week" method="post">
+      <button type="submit" class="btn btn-primary">This Week</button>
+    </form>
+    <form action="/this-month" method="post">
+      <button type="submit" class="btn btn-primary">This Month</button>
+    </form>
+  </div>
   <div class="box">
     <%if (listItems.length){ for(let item of listItems){%>
       <div class="item">
