@@ -58,9 +58,8 @@ app.get("/login", (req, res) => {
 
 app.post("/logout", (req, res) => {
   req.session.destroy(err => {
-
-  })
-  res.redirect("/login");
+    res.redirect("/login");
+  });  
 });
 
 app.post("/today", (req, res) => {
