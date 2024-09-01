@@ -14,6 +14,7 @@ A simple and intuitive web application for managing tasks, built with HTML, CSS,
 
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
+- 
 - **Database:** MongoDB
 - **Authentication:** Passport.js, bcrypt
 
@@ -34,3 +35,23 @@ Follow these instructions to set up and run the project on your local machine.
    ```bash
    git clone https://github.com/Shishir-Hegde/To-Do-List-WebApp.git
    cd To-Do-List-WebApp
+
+2. **Install the required dependencies:**
+   ```bash
+   npm install
+
+3. **Set up environment variables**
+   ```bash
+   PORT=3000
+   MONGO_URI=your_mongo_database_uri
+   SESSION_SECRET=your_session_secret\
+
+4. **Run the application**
+   ```bash
+   npm start
+   
+The app should now be running on http://localhost:3000.
+
+
+
+
