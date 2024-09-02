@@ -15,7 +15,7 @@ A simple and intuitive web application for managing tasks, built with HTML, CSS,
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
 - 
-- **Database:** MongoDB
+- **Database:** PostgreSQL
 - **Authentication:** Passport.js, bcrypt
 
 ## Getting Started
@@ -25,7 +25,7 @@ Follow these instructions to set up and run the project on your local machine.
 ### Prerequisites
 
 - Node.js (version 12 or higher)
-- MongoDB (locally installed or a MongoDB Atlas account)
+- - PostgreSQL (locally installed or a managed PostgreSQL service)
 - Git
 
 ### Installation
